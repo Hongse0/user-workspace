@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sy.side.cms.mapper.NoticeMapper">
+
+    <select id="selectNoticeList"
+            parameterType="com.sy.side.common.entity.page.RequestPage"
+            resultType="com.sy.side.cms.entity.Notice">
+        SELECT
+            notice_id,
+            title,
+            content,
+            created_at,
+            updated_at,
+            delete_yn
+        FROM notice
+        WHERE delete_yn = 'N'
+        ORDER BY created_at
+        LIMIT #{pagination.perPage} OFFSET #{pagination.offset}
+    </select>
+
+    <select id="selectNoticeCnt" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM notice
+        WHERE delete_yn = 'N';
+    </select>
+
+</mapper>
